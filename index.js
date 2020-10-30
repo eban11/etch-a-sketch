@@ -2,11 +2,14 @@ const cells = [];
 const containerSize = 480;
 let size = 16;
 let isDrawing = false;
+let isColorRandomised = false;
 let etchColor = "#000";
+let hue = 0;
 
 const canvas = document.querySelector(".canvas");
 const resetBtn = document.querySelector(".reset-btn");
 const setGridBtn = document.querySelector(".set-grid-btn");
+const randomiseColorBtn = document.querySelector(".randomise-color-btn");
 const etchColorPicker = document.querySelector(".etch-color-picker");
 
 const clearCells = () => {
@@ -35,6 +38,15 @@ const setGridSize = () => {
 
 const setEtchColor = (e) => {
   etchColor = e.target.value;
+  setRandomisedColor();
+};
+
+const setRandomisedColor = () => {
+  isColorRandomised = !isColorRandomised;
+  randomiseColorBtn.textContent = isColorRandomised
+    ? "Single Color"
+    : "Random Colors";
+  etchColor = etchColorPicker.value;
 };
 
 function createGrid(size, container) {
@@ -60,6 +72,11 @@ function createGrid(size, container) {
 }
 
 function handleHover() {
+  if (isColorRandomised) {
+    etchColor = `hsl(${hue}, 100%, 50%)`;
+    hue = (hue + 10) % 360;
+  }
+
   if (isDrawing) {
     this.style.backgroundColor = etchColor;
   }
@@ -67,6 +84,7 @@ function handleHover() {
 
 resetBtn.addEventListener("click", clearCells);
 setGridBtn.addEventListener("click", setGridSize);
+randomiseColorBtn.addEventListener("click", setRandomisedColor);
 etchColorPicker.addEventListener("change", setEtchColor);
 
 function main() {
