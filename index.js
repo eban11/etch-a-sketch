@@ -38,7 +38,9 @@ const setGridSize = () => {
 
 const setEtchColor = (e) => {
   etchColor = e.target.value;
-  setRandomisedColor();
+  if (isColorRandomised) {
+    setRandomisedColor();
+  }
 };
 
 const setRandomisedColor = () => {
@@ -85,7 +87,7 @@ function handleHover() {
 resetBtn.addEventListener("click", clearCells);
 setGridBtn.addEventListener("click", setGridSize);
 randomiseColorBtn.addEventListener("click", setRandomisedColor);
-etchColorPicker.addEventListener("change", setEtchColor);
+etchColorPicker.addEventListener("input", setEtchColor);
 
 function main() {
   const container = document.createElement("div");
