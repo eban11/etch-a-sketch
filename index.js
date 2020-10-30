@@ -16,6 +16,7 @@ const clearCells = () => {
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
       cells[i][j].style.backgroundColor = "#fff";
+      cells[i][j].classList.remove("pixlate");
     }
   }
 };
@@ -64,6 +65,7 @@ function createGrid(size, container) {
       square.addEventListener("click", () => {
         isDrawing = !isDrawing;
         square.style.backgroundColor = etchColor;
+        square.classList.add("pixlate");
       });
 
       cells[i].push(square);
@@ -81,6 +83,7 @@ function handleHover() {
 
   if (isDrawing) {
     this.style.backgroundColor = etchColor;
+    this.classList.add("pixlate");
   }
 }
 
